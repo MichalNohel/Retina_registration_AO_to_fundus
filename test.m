@@ -57,7 +57,7 @@ imshow(AO)
 velikost_obrazu=size(fundus);
 %%
 stred=[250,200];
-sirka_vyrezu=75;
+sirka_vyrezu=50;
 vyrez=fundus(stred(1)-sirka_vyrezu:stred(1)+sirka_vyrezu-1,stred(2)-sirka_vyrezu:stred(2)+sirka_vyrezu-1);
 imshow(vyrez)
 %%
@@ -67,25 +67,46 @@ imshow(vyrez)
 subplot(1,2,2)
 imshow(AO)
 %%
-fixed=AO;
-moving=vyrez;
+% fixed=AO;
+fixed=im2double(imresize(AO,0.10));
+moving=im2double(vyrez);
+
+% fixed=im2double(vyrez);
+% moving=im2double(imresize(AO,0.10));
+%%
+figure
+subplot(1,3,1)
+imshow(fixed)
+title('fixed')
+subplot(1,3,2)
+imshow(moving)
+title('moving')
+subplot(1,3,3)
 imshowpair(fixed,moving,"Scaling","joint")
 %%
 [optimizer,metric] = imregconfig("multimodal")
-optimizer.InitialRadius = 0.00001;
+optimizer.InitialRadius = 0.0001;
 optimizer.Epsilon = 1.5e-4;
 optimizer.GrowthFactor = 1.01;
-optimizer.MaximumIterations = 300;
+optimizer.MaximumIterations = 1000;
 %%
 movingRegistered = imregister(moving,fixed,"affine",optimizer,metric);
 %%
 imshowpair(fixed,movingRegistered,"Scaling","joint")
 
+%%
+figure
+subplot(1,3,1)
+imshow(fixed)
+title('fixed')
+subplot(1,3,2)
+imshow(moving)
+title('moving')
+subplot(1,3,3)
+imshow(movingRegistered)
+title('movingRegistered')
 
-
-
-
-
+%%
 
 
 
