@@ -12,8 +12,8 @@ path_to_fundus='D:\Registrace_oci\Data\SLO\';
 name_AO='OD_20150909103446_X5.0N_Y5.0_Z50.0_KAUERAUF_Cornelia.png';
 name_fundus='Kauerauf_C_723617_0_OD.png'
 
-AO=imread([path_to_AO name_AO]);
-fundus=imread([path_to_fundus name_fundus]);
+AO=im2double(imread([path_to_AO name_AO]));
+fundus=im2double(imread([path_to_fundus name_fundus]));
 
 %%
 name=name_AO(19:end)
@@ -86,7 +86,7 @@ moving=imresize(moving,0.2);
 % moving=vyrez_fundus;
 % fixed=imresize(fixed,0.2);
 
-moving=medfilt2(moving,[7 7]);
+moving=medfilt2(moving,[9 9]);
 
 figure
 subplot(1,3,1)

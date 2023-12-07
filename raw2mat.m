@@ -24,7 +24,7 @@ data=reshape(data,vel(1),vel(2));
 data = permute(data,[2,1]);
 
 % info.size = vel;
-fclose('all')
+fclose('all');
 
 
 
